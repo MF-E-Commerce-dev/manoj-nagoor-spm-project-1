@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MN Shop</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="siteHeader">
+      <div class="container headerInner">
+        <div class="brand" aria-label="ShopMate home">
+          <div class="brandMark">S</div>
+          <div class="brandText">
+            MN ShopMate
+            <small>Kids • Men • Women</small>
+          </div>
+        </div>
+
+        <div class="headerActions">
+          <a class="cartLink" href="./cart.html" aria-label="View cart">
+            <span style="font-weight: 1000">Cart</span>
+            <span class="cartBadge" id="cartCountBadge">0</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="heroRow">
+        <div class="heroTitle">
+          <div>
+            <h1>Shop the best picks</h1>
+            <p>Browse by category, filter by price, like favorites, and add items to your cart.</p>
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <div class="categoryBar" role="tablist" aria-label="Product categories">
+            <button type="button" class="pill pillActive" data-category="All">All</button>
+            <button type="button" class="pill" data-category="Kids">Kids</button>
+            <button type="button" class="pill" data-category="Men">Men</button>
+            <button type="button" class="pill" data-category="Women">Women</button>
+          </div>
+
+          <div class="priceFilter" aria-label="Price filter">
+            <div class="fieldGroup">
+              <label for="minPriceInput">Min</label>
+              <input class="input" id="minPriceInput" type="number" inputmode="decimal" placeholder="0" min="0" step="0.01" />
+            </div>
+            <div class="fieldGroup">
+              <label for="maxPriceInput">Max</label>
+              <input class="input" id="maxPriceInput" type="number" inputmode="decimal" placeholder="100" min="0" step="0.01" />
+            </div>
+
+            <button type="button" class="btn btnPrimary" id="applyPriceBtn">Apply</button>
+            <button type="button" class="btn btnGhost" id="clearPriceBtn">Clear</button>
+            <div class="errorText" id="priceError" aria-live="polite"></div>
+          </div>
+        </div>
+      </section>
+
+      <div class="gridMeta">
+        <strong id="productCountLabel">Products</strong>
+        <div style="color: var(--muted); font-weight: 800; font-size: 13px">
+          Tip: Click <span style="color: var(--primary)">View details</span> for each product.
+        </div>
+      </div>
+
+      <section class="productsGrid" id="productsGrid" aria-label="Products grid"></section>
+    </main>
+
+    <!-- Details Modal -->
+    <div class="modalOverlay" id="detailsModalOverlay" role="dialog" aria-modal="true" aria-labelledby="detailsModalTitle">
+      <div class="modal">
+        <div class="modalHeader">
+          <h2 id="detailsModalTitle">Product details</h2>
+          <button class="iconBtn" type="button" id="detailsModalCloseBtn" aria-label="Close details">X</button>
+        </div>
+
+        <div class="modalBody">
+          <div class="modalProductTop">
+            <img id="detailsModalImage" alt="" src="" />
+            <div>
+              <p class="modalPrice" id="detailsModalPrice">$0.00</p>
+              <div class="modalMeta" id="detailsModalMeta">Category • Type</div>
+              <p class="modalDesc" id="detailsModalDesc"></p>
+            </div>
+          </div>
+          <div>
+            <div style="font-weight: 1000; margin-bottom: 8px">Highlights</div>
+            <ul class="highlightList" id="detailsModalHighlights"></ul>
+          </div>
+          <div style="display: flex; gap: 10px; flex-wrap: wrap">
+            <button type="button" class="btn btnPrimary" id="detailsAddToCartBtn">Add to Cart</button>
+            <button type="button" class="btn btnSecondary" id="detailsBuyBtn">Buy</button>
+            <button type="button" class="btn btnGhost" id="detailsFavoriteBtn">Like</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Order details modal -->
+    <div class="modalOverlay modalOverlayOrder" id="orderModalOverlay" role="dialog" aria-modal="true" aria-labelledby="orderModalTitle">
+      <div class="modal modalNarrow">
+        <div class="modalHeader">
+          <h2 id="orderModalTitle">Order details</h2>
+          <button class="iconBtn" type="button" id="orderModalCloseBtn" aria-label="Close order form">X</button>
+        </div>
+
+        <div class="modalBody">
+          <div class="orderProductSummary" id="orderProductSummary"></div>
+
+          <form id="orderForm" class="orderForm" novalidate>
+            <div class="formGrid">
+              <div class="fieldGroup fieldGroupBlock">
+                <label for="orderFullName">Full name</label>
+                <input class="input inputBlock" id="orderFullName" name="fullName" type="text" autocomplete="name" required />
+              </div>
+              <div class="fieldGroup fieldGroupBlock">
+                <label for="orderPhone">Phone</label>
+                <input class="input inputBlock" id="orderPhone" name="phone" type="tel" autocomplete="tel" required />
+              </div>
+              <div class="fieldGroup fieldGroupBlock">
+                <label for="orderEmail">Email <span class="optionalHint">(optional)</span></label>
+                <input class="input inputBlock" id="orderEmail" name="email" type="email" autocomplete="email" />
+              </div>
+              <div class="fieldGroup fieldGroupBlock">
+                <label for="orderQty">Quantity</label>
+                <input class="input inputBlock" id="orderQty" name="qty" type="number" min="1" step="1" value="1" required />
+              </div>
+              <div class="fieldGroup fieldGroupBlock">
+                <label for="orderAddress">Delivery address</label>
+                <textarea class="input textarea" id="orderAddress" name="address" rows="3" required></textarea>
+              </div>
+              <div class="fieldGroup fieldGroupBlock">
+                <label for="orderNotes">Notes <span class="optionalHint">(optional)</span></label>
+                <textarea class="input textarea" id="orderNotes" name="notes" rows="2"></textarea>
+              </div>
+            </div>
+            <p class="errorText" id="orderFormError" aria-live="polite"></p>
+            <div class="orderFormActions">
+              <button type="button" class="btn btnGhost" id="orderCancelBtn">Cancel</button>
+              <button type="submit" class="btn btnPrimary" id="orderSubmitBtn">Place order</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toastWrap" aria-live="polite" aria-atomic="true">
+      <div class="toast" id="toastEl">
+        <span id="toastText">Message</span>
+      </div>
+    </div>
+
+<footer style="background:#1d1d1d; color:#bababa; padding:20px; text-align:center;">
+  <p>© 2026 Created by Manoj, Nagoor. All Rights Reserved.</p>
+  <p>Email: nagoorfrancis@gmail.com</p>
+</footer>
+
+    <script src="./products.js"></script>
+    <script src="./utils.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore-compat.js"></script>
+    <script src="./firebase-config.js"></script>
+    <script src="./app.js" defer></script>
+  </body>
+</html>
+

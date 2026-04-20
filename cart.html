@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Cart - MN ShopMate</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="siteHeader">
+      <div class="container headerInner">
+        <div class="brand" aria-label="ShopMate">
+          <div class="brandMark">S</div>
+          <div class="brandText">
+            MN ShopMate
+            <small>Your cart</small>
+          </div>
+        </div>
+
+        <div class="headerActions">
+          <a class="cartLink" href="./index.html" aria-label="Continue shopping">
+            <span style="font-weight: 1000">Shop</span>
+          </a>
+          <a class="cartLink" href="./cart.html" aria-label="View cart">
+            <span style="font-weight: 1000">Cart</span>
+            <span class="cartBadge" id="cartCountBadge">0</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <main class="container">
+      <div class="cartHeaderRow">
+        <div>
+          <h1 style="margin: 0; font-size: clamp(22px, 3vw, 30px); letter-spacing: -0.02em">Your Cart</h1>
+          <p style="margin: 6px 0 0; color: var(--muted); font-weight: 800">
+            Add, remove, and update quantities. Totals update automatically.
+          </p>
+        </div>
+      </div>
+
+      <section class="cartGrid">
+        <div class="cartItems" id="cartItemsPanel">
+          <div class="emptyState" id="cartEmptyState">
+            Your cart is empty. Browse products on the homepage and click <b>Add to Cart</b>.
+          </div>
+          <div id="cartItemsList" aria-label="Cart items"></div>
+        </div>
+
+        <aside class="cartSummary" aria-label="Cart summary">
+          <div class="summaryRow">
+            <strong>Total</strong>
+            <div class="summaryTotal" id="cartTotal">$0.00</div>
+          </div>
+
+          <div class="summaryRow" style="margin-bottom: 0">
+            <strong>Items</strong>
+            <div style="font-size: 18px; font-weight: 1000; color: var(--text)" id="cartItemsCountLabel">0</div>
+          </div>
+
+          <div style="display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap">
+            <button type="button" class="btn btnGhost" id="clearCartBtn">Remove all</button>
+            <button type="button" class="btn btnPrimary" disabled style="opacity: 0.7; cursor: not-allowed">
+              Checkout (demo)
+            </button>
+          </div>
+        </aside>
+      </section>
+    </main>
+    
+    <script src="./products.js"></script>
+    <script src="./utils.js"></script>
+    <script src="./cart.js" defer></script>
+  </body>
+</html>
+
